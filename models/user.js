@@ -3,11 +3,10 @@ var schema = mongoose.Schema;
 
 var user = new schema({
     email: { type: String },
-    firstname: { type: String },
-    lastname: { type: String },
+    fullname: { type: String },
     phone: { type: String },
     img: { type: String, default: "img.png" },
-    is_active: { type: Number, default: 1 },
+    is_active: { type: Number, default: 0 },
     is_delete: { type: Number, default: 0 },
     login_total: { type: Number, default: 0 },
     last_login: { type: Date },
