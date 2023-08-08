@@ -241,12 +241,16 @@ function passwordToHass(str) {
     });
 }
 
+async function compare_pass(hash, password) {
+    return await bcrypt.compare(password, hash);
+}
+
 async function add_user(req){
     return new Promise(async (resolve, reject) => {
 		let code = Math.floor(100000 + Math.random() * 900000);
 		try{
 			let newUser = {
-				fullname: req.body.fullname ? req.body.fullname : 'Full Name',
+				fullname: req.body.fullname ? req.body.fullname : req.body.email,
 				email: req.body.email,
 				password: await passwordToHass(req.body.password),
 				email_otp: code.toString(),
@@ -265,4 +269,4 @@ async function add_user(req){
     });
 }
 
-module.exports = { add_user };
+module.exports = { add_user, compare_pass };
