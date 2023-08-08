@@ -1,7 +1,7 @@
-node_modules/
+/api/node_modules/
 
-/npm-debug.log*
-/yarn-debug.log*
-/yarn-error.log*
+/api/npm-debug.log*
+/api/yarn-debug.log*
+/api/yarn-error.log*
 
 /*.log
