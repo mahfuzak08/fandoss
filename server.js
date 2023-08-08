@@ -27,6 +27,11 @@ var server = http.createServer(app);
 let ip = process.env.SERVER_IP || 'localhost';
 server.listen(port, ip, ()=>{
     console.log(`Server is running at ${ip}:${port}`);
+
+    /**
+     * For testing
+     */
+    // require('./unit_test/email_sending');
 });
 server.on('error', onError);
 server.on('listening', onListening);
