@@ -3,20 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./index"
+    "start": "node ./index.js"
   },
-  "builds": [
-    {
-        "src": "./index.js",
-        "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-        "src": "/(.*)",
-        "dest": "/"
-    }
-  ],
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cookie-parser": "~1.4.4",
