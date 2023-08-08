@@ -4,8 +4,8 @@ var transporter = nodemailer.createTransport({
   host: 'smtp.elasticemail.com',
   port: 2525,
   auth: {
-    user: 'fandossofficial@gmail.com',
-    pass: '3E94CAF7AA35761741412A865030EA922727'
+	user: process.env.ELASTICEMAIL_USERNAME,
+	pass: process.env.ELASTICEMAIL_PASSWORD
   }
 });
 
