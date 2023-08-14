@@ -262,7 +262,7 @@ async function add_user(req){
         	
 			let addedUser = await new Users(newUser).save();
 			sendEmail(addedUser.email, `Sign in OTP from FanDoss`, `Hello ${addedUser.fullname},<br>Please verify your email address by using the bellow OTP code for the first time login.<br><br>${code} is your OTP code.`);
-			resolve(addedUser);
+			resolve({_id: addedUser._id, email: addedUser.email, fullname: addedUser.fullname, phone: addedUser.phone, img: addedUser.img});
 		}catch(e){
 			reject(e);
 		}
