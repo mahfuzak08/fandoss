@@ -2,9 +2,9 @@ var mongoose = require('mongoose');
 var schema = mongoose.Schema;
 
 var user = new schema({
-    email: { type: String },
+    email: { type: String, unique: true },
     fullname: { type: String },
-    phone: { type: String },
+    phone: { type: String, unique: true },
     img: { type: String, default: "img.png" },
     is_active: { type: Number, default: 0 },
     is_delete: { type: Number, default: 0 },

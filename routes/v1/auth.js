@@ -34,6 +34,9 @@ router.post('/signup', async (req, res) => {
         return res.status(200).json(result);
     } catch (e) {
         console.log(1214, e)
+		if(e.code === 11000){
+			return res.status(400).json({ error: 'Duplicate error', message: `This email already registered` });
+		}
         return res.status(400).json({ error: 'Error', message: e });
     }
 });
