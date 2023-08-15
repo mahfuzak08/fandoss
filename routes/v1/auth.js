@@ -31,7 +31,7 @@ router.post('/signup', async (req, res) => {
 	
 	try {
         var result = await add_user(req);
-        return res.status(200).json(result);
+        return res.status(200).json({user_info: result, message: "User created successfully."});
     } catch (e) {
         console.log(1214, e)
 		if(e.code === 11000){
@@ -107,7 +107,7 @@ router.post('/otp_verify', async (req, res) => {
 	try {
 		let result = await User.updateOne({email: req.body.email, email_otp: req.body.code}, {verified: 'yes', email_otp: '', is_active: 1}).exec();
         if(result.modifiedCount === 1){
-			return res.status(200).json(result);
+			return res.status(200).json({result: 'Email verified successfully...'});
 		}
 		else throw new Error('Email address or otp not match');
     } catch (e) {
