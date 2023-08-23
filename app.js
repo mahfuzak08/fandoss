@@ -3,10 +3,11 @@ require('./connection/db');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 var logger = require('morgan');
 var debug = require('debug')('fandoss:server');
 var http = require('http');
+const cors = require('cors');
 
 var indexRouter = require('./routes/index');
 
@@ -16,10 +17,19 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+const corsOptions = {
+  origin: true,
+  // "preflightContinue": true,
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200
+}
+// app.options('*', cors());
+app.use(cors(corsOptions));
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
