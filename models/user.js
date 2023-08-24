@@ -22,7 +22,7 @@ var user = new schema({
     gender: { type: String },
     nickname: { type: String },
     nid: { type: String },
-    intro: { type: String }
-}
-);
+    intro: { type: String },
+    refresh_token: { type: String, default: "" }
+}, { strict: 'throw' });
 module.exports = mongoose.model('user', user);

@@ -7,9 +7,12 @@ const bodyParser = require('body-parser');
 var logger = require('morgan');
 var debug = require('debug')('fandoss:server');
 var http = require('http');
+const passport = require('passport');
 const cors = require('cors');
 
 var indexRouter = require('./routes/index');
+
+require('./connection/passport')(passport);
 
 var app = express();
 
@@ -34,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/v1/auth', require('./routes/v1/auth'));
+app.use('/v1/post', passport.authenticate('jwt', { session: false }), require('./routes/v1/post'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
