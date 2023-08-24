@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const Users = require('../models/user');
 var nodemailer = require('nodemailer');
+var logger = require('../logger');
 
 var transporter = nodemailer.createTransport({
 	host: 'smtp.elasticemail.com',
@@ -223,7 +224,8 @@ function sendEmail(to, subject, body){
 
 	transporter.sendMail(mailOptions, function(error, info){
 	  if (error) {
-		console.log(224, error);
+		console.log('Email sending error', error);
+		logger.info(error);
 	  } else {
 		console.log('Email sent: ' + info.response);
 	  }
@@ -247,13 +249,12 @@ async function compare_pass(hash, password) {
 
 async function add_user(req){
     return new Promise(async (resolve, reject) => {
-		let code = Math.floor(100000 + Math.random() * 900000);
+		// let code = Math.floor(100000 + Math.random() * 900000);
 		try{
 			let newUser = {
 				fullname: req.body.fullname ? req.body.fullname : req.body.email,
 				email: req.body.email,
 				password: await passwordToHass(req.body.password),
-				email_otp: code.toString(),
 				role: req.body.role ? req.body.role : 'Member',
 			};
 			if(req.body.phone){
@@ -261,7 +262,7 @@ async function add_user(req){
 			}
         	
 			let addedUser = await new Users(newUser).save();
-			sendEmail(addedUser.email, `Sign in OTP from FanDoss`, `Hello ${addedUser.fullname},<br>Please verify your email address by using the bellow OTP code for the first time login.<br><br>${code} is your OTP code.`);
+			
 			resolve({_id: addedUser._id, email: addedUser.email, fullname: addedUser.fullname, phone: addedUser.phone, img: addedUser.img});
 		}catch(e){
 			reject(e);
@@ -269,4 +270,4 @@ async function add_user(req){
     });
 }
 
-module.exports = { add_user, compare_pass };
+module.exports = { add_user, compare_pass, sendEmail };
