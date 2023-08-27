@@ -4,7 +4,7 @@ var schema = mongoose.Schema;
 var user = new schema({
     email: { type: String, unique: true },
     fullname: { type: String },
-    phone: { type: String, unique: true },
+    phone: { type: String },
     img: { type: String, default: "img.png" },
     is_active: { type: Number, default: 1 },
     is_delete: { type: Number, default: 0 },
